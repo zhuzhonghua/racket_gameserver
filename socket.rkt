@@ -43,7 +43,8 @@
 
 (define (read-sock sock)
   (when (and (not (port-closed? (socket-in sock)))
-             (byte-ready? (socket-in sock)))
+             (byte-ready? (socket-in sock))
+			 (< (socket-act-len sock) (bytes-length (socket-buf sock))))
     (define len (read-bytes-avail!* (socket-buf sock)
                                     (socket-in sock)
                                     (socket-act-len sock)

@@ -8,7 +8,7 @@ http://planet.racket-lang.org/archives/murphy/protobuf.plt/1/1/contents/planet-d
 
 协议使用的ProtoBuf  
 
-另外用使用nodejs写了一个测试客户端，可以收发一些简单命令
+另外用使用nodejs写了一个测试客户端，node testClient.js 可以收发一些简单命令
 
 (serve port-no)是主入口函数，传入一个服务器需要监听的端口。
 

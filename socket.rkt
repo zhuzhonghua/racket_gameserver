@@ -19,6 +19,12 @@
     (set-socket-out-buf! sock (make-bytes 4096))
     sock))
 
+(define (close-socket sock)
+  (let ([in (socket-in sock)]
+        [out (socket-out sock)])
+    (close-input-port in)
+    (close-output-port out)))    
+
 (define (pack-msg sock handle-msg)
   (when (>= (socket-act-len sock) 6)
     (define op-code (integer-bytes->integer (socket-buf sock) #f #f 0 2))
@@ -44,7 +50,7 @@
 (define (read-sock sock)
   (when (and (not (port-closed? (socket-in sock)))
              (byte-ready? (socket-in sock))
-			 (< (socket-act-len sock) (bytes-length (socket-buf sock))))
+             (< (socket-act-len sock) (bytes-length (socket-buf sock))))
     (define len (read-bytes-avail!* (socket-buf sock)
                                     (socket-in sock)
                                     (socket-act-len sock)
